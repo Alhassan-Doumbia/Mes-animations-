@@ -1,0 +1,92 @@
+[class|="loop-element"] .marquee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  overflow: hidden;
+  pointer-events: none;
+  height: 170px;
+  background-color: purple;
+  display: flex;
+  align-items: center;
+  z-index: 11;
+}
+
+[class|="loop-element"] .marquee .marquee--inner {
+  display: flex;
+  position: relative;
+  transform: translate3d(-25%, 0, 0);/*Changer le -25 en 25 pour faire le defilemet vers la droite sur le 2e bloc*/
+  transition: opacity 0.1s;
+  text-transform: uppercase;
+  z-index: 1; /* Pour pouvoir mettre l fumée , ainsi on mettra les before et after en z-index:0 */
+ 
+}
+
+@keyframes marquee_1_1 {
+  0% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    opacity: 1;
+    animation-timing-function: linear;
+  }
+  100% {
+    transform: matrix(1, 0, 0, 1, -2609.619140625, 0);
+    opacity: 1;
+  }
+}
+
+/* Concerne la mise en forme texte */
+
+[class|="loop-element"] .marquee .marquee--inner span {
+  white-space: nowrap;
+  position: relative;
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: red;
+  font-size: 124px;
+
+  /* Pour avoir que les strokes */
+  -webkit-text-stroke: 1px black;/*à modifier*/
+  color: transparent;   
+  background-color: transparent;
+   /* Pour avoir que les strokes */
+
+}
+/* Fin de la mise en forme du texte  */
+
+
+/* Activation de l'animtion */
+[class|="loop-element"] .marquee .marquee--inner {
+  animation: marquee_1_1 29s linear infinite;
+}
+/* fin du bloc d'activation de l'animtion */
+/* L'animation se passe sur marquee--inner */
+
+
+/* Pour mettre la fumée blanche  */
+.marquee::before{
+    content:"";
+    /* left:-15%; */
+    left:-18%;
+    height:100%;
+    width:70px;
+    background-color:transparent;
+    position:absolute;
+    box-shadow:210px 0px 48px white;
+
+    /*test*/
+    z-index: 0;
+
+}
+.marquee::after{
+    content:"";
+    /* right:-15%; */
+    right:-18%;
+    height:100%;
+    width:70px;
+    background-color:transparent;
+    position:absolute;
+    box-shadow:-215px 0px 40px red;
+
+    /*test*/
+    z-index: 0;
+}

@@ -1,0 +1,81 @@
+
+/* Styles pour l'élément principal .marquee de la classe loop-element */
+[class|="loop-element"] .marquee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  overflow: hidden;
+  pointer-events: none;
+  height: 170px;
+  background-color: purple;
+  display: flex;
+  align-items: center;
+  z-index: 11; /* Définir la profondeur d'empilement pour le positionnement z */
+}
+
+/* Styles pour l'élément interne .marquee--inner de la classe loop-element */
+[class|="loop-element"] .marquee .marquee--inner {
+  display: flex;
+  position: relative;
+  transform: translate3d(-25%, 0, 0); /* Déplacement de 25% vers la gauche (modifier en 25% pour défilement vers la droite) */
+  transition: opacity 0.1s;
+  text-transform: uppercase;
+  z-index: 1; /* Utilisé pour positionner la fumée, les pseudo-éléments avant et après auront un z-index de 0 */
+}
+
+/* Animation keyframes pour le défilement horizontal */
+@keyframes marquee_1_1 {
+  0% {
+    transform: matrix(1, 0, 0, 1, 0, 0);
+    opacity: 1;
+    animation-timing-function: linear;
+  }
+  100% {
+    transform: matrix(1, 0, 0, 1, -2609.619140625, 0);
+    opacity: 1;
+  }
+}
+
+/* Styles pour le texte à l'intérieur de .marquee--inner */
+[class|="loop-element"] .marquee .marquee--inner span {
+  white-space: nowrap;
+  position: relative;
+  padding-left: 30px;
+  padding-right: 30px;
+  background-color: red;
+  font-size: 124px;
+
+  /* Styles pour obtenir uniquement les contours autour des caractères */
+  -webkit-text-stroke: 1px black; /* À modifier si nécessaire */
+  color: transparent;   
+  background-color: transparent;
+}
+
+/* Activation de l'animation pour .marquee--inner */
+[class|="loop-element"] .marquee .marquee--inner {
+  animation: marquee_1_1 29s linear infinite;
+}
+
+/* Styles pour les pseudo-éléments avant et après pour simuler de la fumée blanche */
+.marquee::before,
+.marquee::after {
+  content: "";
+  left: -18%; /* Ajuster la position si nécessaire */
+  right: -18%; /* Ajuster la position si nécessaire */
+  height: 100%;
+  width: 70px;
+  background-color: transparent;
+  position: absolute;
+  z-index: 0; /* Empêcher que la fumée ne soit au-dessus du texte */
+}
+
+/* Styles pour la fumée à gauche */
+.marquee::before {
+  box-shadow: 210px 0px 48px white;
+}
+
+/* Styles pour la fumée à droite */
+.marquee::after {
+  box-shadow: -215px 0px 40px red;
+}
